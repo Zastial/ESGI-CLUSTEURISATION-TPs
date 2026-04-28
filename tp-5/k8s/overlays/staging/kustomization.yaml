@@ -1,0 +1,10 @@
+resources:
+- ../../base
+
+namespace: app-staging
+
+configMapGenerator:
+- name: app-config
+  literals:
+  - ENV_NAME=staging
+  - LOG_LEVEL=info

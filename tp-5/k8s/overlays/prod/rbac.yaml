@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: prod-deployer
+  namespace: app-prod
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: prod-deployer-role
+  namespace: app-prod
+rules:
+- apiGroups: ["", "apps"]
+  resources: ["pods", "pods/log"]
+  verbs: ["get", "list", "watch"]
+
+- apiGroups: ["apps"]
+  resources: ["deployments"]
+  verbs: ["get", "update", "patch"]
+
+- apiGroups: [""]
+  resources: ["services"]
+  verbs: ["get", "create", "update"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: prod-deployer-binding
+  namespace: app-prod
+subjects:
+- kind: ServiceAccount
+  name: prod-deployer
+roleRef:
+  kind: Role
+  name: prod-deployer-role
+  apiGroup: rbac.authorization.k8s.io

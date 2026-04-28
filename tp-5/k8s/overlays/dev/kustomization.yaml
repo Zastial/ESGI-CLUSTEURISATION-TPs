@@ -1,0 +1,10 @@
+resources:
+- ../../base
+
+namespace: app-dev
+
+configMapGenerator:
+- name: app-config
+  literals:
+  - ENV_NAME=dev
+  - LOG_LEVEL=debug

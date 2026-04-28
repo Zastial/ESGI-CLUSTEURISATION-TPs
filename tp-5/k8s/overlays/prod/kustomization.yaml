@@ -1,0 +1,10 @@
+resources:
+- ../../base
+
+namespace: app-prod
+
+configMapGenerator:
+- name: app-config
+  literals:
+  - ENV_NAME=prod
+  - LOG_LEVEL=warn
